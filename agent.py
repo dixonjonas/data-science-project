@@ -30,7 +30,6 @@ class Agent:
             except ValueError as e:
                 print(e)
         print("")
-
     
     #Calling the agent to act
     def call(self, history):
