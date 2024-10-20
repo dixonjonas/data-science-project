@@ -10,20 +10,28 @@ def main():
     rpst = ['1','2','3','0']
 
     #Asking the user to set the mode
-    mode = input("Please enter 'single' for normal prisoners dilemma or 'multi' for iterated prisoners dilemma: ")
+    mode = prisonersDilemma.get_mode()
 
     #Run the normal prisoners dilemma
     if mode == 'single':
         game = prisonersDilemma(rpst)
-        responses = game.run_single_round()
-        print(responses)
+        responses, sentence = game.run_single_round()
+        print(responses[0])
+        print(responses[1])
+        print("")
+        print(sentence)
+        print("")
     
     #Run the iterated prisoners dilemma
     elif mode == 'multi':
         numer_of_rounds = input("Please enter the number of rounds to run: ")
         game = prisonersDilemma(rpst)
-        responses = game.run_multi_round(numer_of_rounds)
+        responses, sentence = game.run_multi_round(numer_of_rounds)
+        print("")
         print(responses)
+        print(sentence)
+        print("")
+        #TODO add iterated prisoners dilemma
 
 if __name__ == "__main__":
     main()

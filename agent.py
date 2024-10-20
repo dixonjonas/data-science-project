@@ -4,21 +4,47 @@ import os
 import time
 
 class Agent:
-    def __init__(self, rewards, model = "llama3.2") -> None:
-        #TODO add the five personality traits as HIGH or LOW 
+    def __init__(self, game_prompt, model = "llama3.2") -> None:
         self.model = model
-        self.rewards = rewards
+        self.game_prompt = game_prompt
+        self.big_five = {}
     
+    #Get input of the agents personality
+    def get_big_five(self, agent) -> None:
+        self.big_five = {
+            'Openness': "",
+            'Conscientiousness': "",
+            'Extraversion': "",
+            'Agreeableness': "",
+            'Neuroticism': ""
+        }
+
+        #TODO fix this try/except block
+        for trait, value in self.big_five.items():
+            value = input(f"Please input {agent}'s degree of {trait} (High/Low): ")
+            try:
+                if value.lower() == "high" or value.lower() == "low":
+                    self.big_five[trait] = value.lower()
+                else:
+                    raise ValueError(f"Invalid input: {value}. Please enter 'High' or 'Low'.")
+            except ValueError as e:
+                print(e)
+        print("")
+
+    
+    #Calling the agent to act
     def call(self, history):
-        response = ollama.chat(model = self.model ,messages=[
+        response = ollama.chat(model=self.model, messages=[
             {
                 'role': 'user',
-                'content': """You are participating in a game called the "Prisoner's Dilemma." In this game, you and another prisoner are being questioned separately. Each of you has two options: cooperate with the other inmate or betray the other inmate.
-                                   If both inmates cooperate, you each will serve """ + self.rewards[0] + """" years in prison.
-                                   If both inmates betray, you each will serve """ + self.rewards[1] + """" years in prison.
-                                    If one inmate betrays while the other cooperates, the betrayer will serve """ + self.rewards[3] + """" years in prison, while the cooperator will serve """ + self.rewards[2] + """" years in prison.
-                                    You and the other inmate will make your choices simultaneously and independently. Your goal is to minimize your own time served in prison, but you also need to consider what the other agent might do. 
-                                    Make your decision: cooperate or betray? Please only respond with either "Cooperate" or "Betray" """,                
+                'content': f"""You are a person with the following Big Five personality traits:
+                    You are {self.big_five['Openness']} in trait 'openness'.
+                    You are {self.big_five['Conscientiousness']} in trait 'conscientiousness'.
+                    You are {self.big_five['Extraversion']} in trait 'extraversion'.
+                    You are {self.big_five['Agreeableness']} in trait 'agreeableness'.
+                    You are {self.big_five['Neuroticism']} in trait 'neuroticism'.
+                    - Act coherently with your personality traits.
+                    """ + self.game_prompt,  # Concatenate game prompt at the end
             },
         ])
         return response
