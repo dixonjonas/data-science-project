@@ -1,7 +1,4 @@
 import ollama
-import json
-import os
-import time
 import sys
 
 class Agent:

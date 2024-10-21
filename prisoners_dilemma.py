@@ -1,7 +1,4 @@
 import ollama
-import json
-import os
-import time
 import sys
 from agent import Agent
 
@@ -22,12 +19,12 @@ class prisonersDilemma:
     def get_mode():
         try:
             print("")
-            mode = input("Please enter 'Single' for normal prisoners dilemma or 'Multi' for iterated prisoners dilemma: ")
+            mode = input("Please enter 'Standard' for the standard prisoners dilemma or 'Iterated' for the iterated prisoners dilemma: ")
             print("")
-            if mode.lower() == "single" or mode.lower() == "multi":
+            if mode.lower() == "standard" or mode.lower() == "iterated":
                 return mode.lower()
             else:
-                raise ValueError(f"Invalid input: {mode}. Please enter 'single' or 'multi'.")
+                raise ValueError(f"Invalid input: {mode}. Please enter 'standard' or 'iterated'.")
         except ValueError as e:
             print(e)
     
@@ -76,55 +73,10 @@ class prisonersDilemma:
 
         return sentence, result_cooperation
 
-    #Function to run prisoners dilemma with no history
-    def run_single_round(self) -> None:
-        #Creating agents
-        agent1 = Agent(self.game_prompt)
-        agent2 = Agent(self.game_prompt)
-
-        #Asking user for how many rounds they want to run
-        rounds = self.get_rounds()
-
-        #Asking the user for personality inputs
-        agent1.get_big_five("prisoner 1")
-        agent2.get_big_five("prisoner 2")
-
-        #Running simulation for specified number of rounds
-        results = [0,0]
-        for i in range(rounds):
-            #Getting the agent responses
-            agent1_response = agent1.call('')['message']['content']
-            agent2_response = agent1.call('')['message']['content']
-            initial_responses = [agent1_response, agent2_response]
-
-            #Extracting responses
-            responses = self.extract_responses(initial_responses)
-
-            #Calculating sentence
-            sentence, result_cooperation = self.calculate_sentence_and_results(responses, self.rewards)
-
-            #Aggregating results
-            results[0] = results[0] + result_cooperation[0]
-            results[1] = results[1] + result_cooperation[1]
-
-            #Printing responses and sentence
-            i_plus = i+1
-            print(f"Game {i_plus}: " )
-            print(f"    {responses[0]}")
-            print(f"    {responses[1]}")
-            print("")
-            print(f"    {sentence}")
-            print("")
-        
-        #Printing final result
-        print("Prisoner 1 cooperated " + str(results[0]) + " times and betrayed " + str(rounds-results[0]) + " times")
-        print("Prisoner 2 cooperated " + str(results[1]) + " times and betrayed " + str(rounds-results[1]) + " times")
-        print("")
-
-    #Function to run iterated prisoners dilemma with history
-    def run_multi_round(self) -> None:
+    #Function to run the prisoners dilemma
+    def run_prisoners_dilemma(self, mode) -> None:
         #TODO save results to a .csv file. History of cooperations and betrayals
-        #TODO improve conciseness of code, lots of overlap in these two methods
+        #TODO fix bug where the LLM seems to not generate a response resulting in list out of range error
         #Creating agents
         agent1 = Agent(self.game_prompt)
         agent2 = Agent(self.game_prompt)
@@ -139,9 +91,13 @@ class prisonersDilemma:
         #Running simulation for specified number of rounds
         results = [0,0]
         for i in range(rounds):
-            #Getting the agent responses
-            agent1_response = agent1.call(self.history_p1)['message']['content']
-            agent2_response = agent1.call(self.history_p2)['message']['content']
+            #Generating the agent responses
+            if mode == 'iterated':
+                agent1_response = agent1.call(self.history_p1)['message']['content']
+                agent2_response = agent1.call(self.history_p2)['message']['content']
+            elif mode == 'standard':
+                agent1_response = agent1.call('')['message']['content']
+                agent2_response = agent1.call('')['message']['content']
             initial_responses = [agent1_response, agent2_response]
 
             #Extracting responses
@@ -169,7 +125,7 @@ class prisonersDilemma:
                 self.history_p2 = self.history_p2 + f"\nRound {i_plus}: The other prisoner betrayed you!"
 
             #Printing responses and sentence
-            print(f"Round {i_plus}: " )
+            print(f"Game {i_plus}: " )
             print(f"    {responses[0]}")
             print(f"    {responses[1]}")
             print("")
