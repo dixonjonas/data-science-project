@@ -15,23 +15,12 @@ def main():
     #Run the normal prisoners dilemma
     if mode == 'single':
         game = prisonersDilemma(rpst)
-        responses, sentence = game.run_single_round()
-        print(responses[0])
-        print(responses[1])
-        print("")
-        print(sentence)
-        print("")
+        game.run_single_round()
     
     #Run the iterated prisoners dilemma
     elif mode == 'multi':
-        numer_of_rounds = input("Please enter the number of rounds to run: ")
         game = prisonersDilemma(rpst)
-        responses, sentence = game.run_multi_round(numer_of_rounds)
-        print("")
-        print(responses)
-        print(sentence)
-        print("")
-        #TODO add iterated prisoners dilemma
+        game.run_multi_round()
 
 if __name__ == "__main__":
     main()

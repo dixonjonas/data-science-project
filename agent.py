@@ -2,6 +2,7 @@ import ollama
 import json
 import os
 import time
+import sys
 
 class Agent:
     def __init__(self, game_prompt, model = "llama3.2") -> None:
@@ -20,15 +21,16 @@ class Agent:
         }
 
         #TODO fix this try/except block
-        for trait, value in self.big_five.items():
-            value = input(f"Please input {agent}'s degree of {trait} (High/Low): ")
-            try:
+        try:
+            for trait, value in self.big_five.items():
+                value = input(f"Please input {agent}'s degree of {trait} (High/Low): ")
                 if value.lower() == "high" or value.lower() == "low":
                     self.big_five[trait] = value.lower()
                 else:
                     raise ValueError(f"Invalid input: {value}. Please enter 'High' or 'Low'.")
-            except ValueError as e:
-                print(e)
+        except ValueError as e:
+            print(e)
+            sys.exit(1)
         print("")
     
     #Calling the agent to act
@@ -43,7 +45,7 @@ class Agent:
                     You are {self.big_five['Agreeableness']} in trait 'agreeableness'.
                     You are {self.big_five['Neuroticism']} in trait 'neuroticism'.
                     - Act coherently with your personality traits.
-                    """ + self.game_prompt,  # Concatenate game prompt at the end
+                    """ + self.game_prompt + history,
             },
         ])
         return response
