@@ -76,11 +76,9 @@ class prisonersDilemma:
 
     #Function to run the prisoners dilemma
     def run_prisoners_dilemma(self, mode) -> None:
-        #TODO save results to a .csv file. History of cooperations and betrayals
         #TODO fix bug where the LLM seems to not generate a response resulting in list out of range error
-
         #Creating .csv file
-        with open('prisoners_dilemma_results.csv', mode='w', newline='') as file:
+        with open('prisoners_dilemma/prisoners_dilemma_results.csv', mode='w', newline='') as file:
             writer = csv.writer(file)
             writer.writerow(['Game', 'Prisoner 1 Response', 'Prisoner 2 Response', 'Sentence'])
 
