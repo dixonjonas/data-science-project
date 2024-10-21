@@ -1,5 +1,6 @@
 import ollama
 import sys
+import csv
 from agent import Agent
 
 class prisonersDilemma:
@@ -77,62 +78,71 @@ class prisonersDilemma:
     def run_prisoners_dilemma(self, mode) -> None:
         #TODO save results to a .csv file. History of cooperations and betrayals
         #TODO fix bug where the LLM seems to not generate a response resulting in list out of range error
-        #Creating agents
-        agent1 = Agent(self.game_prompt)
-        agent2 = Agent(self.game_prompt)
 
-        #Asking user for how many rounds they want to run
-        rounds = self.get_rounds()
+        #Creating .csv file
+        with open('prisoners_dilemma_results.csv', mode='w', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerow(['Game', 'Prisoner 1 Response', 'Prisoner 2 Response', 'Sentence'])
 
-        #Asking the user for personality inputs
-        agent1.get_big_five("prisoner 1")
-        agent2.get_big_five("prisoner 2")
+            #Creating agents
+            agent1 = Agent(self.game_prompt)
+            agent2 = Agent(self.game_prompt)
 
-        #Running simulation for specified number of rounds
-        results = [0,0]
-        for i in range(rounds):
-            #Generating the agent responses
-            if mode == 'iterated':
-                agent1_response = agent1.call(self.history_p1)['message']['content']
-                agent2_response = agent1.call(self.history_p2)['message']['content']
-            elif mode == 'standard':
-                agent1_response = agent1.call('')['message']['content']
-                agent2_response = agent1.call('')['message']['content']
-            initial_responses = [agent1_response, agent2_response]
+            #Asking user for how many rounds they want to run
+            rounds = self.get_rounds()
 
-            #Extracting responses
-            responses = self.extract_responses(initial_responses)
+            #Asking the user for personality inputs
+            agent1.get_big_five("prisoner 1")
+            agent2.get_big_five("prisoner 2")
 
-            #Calculating sentence
-            sentence, result_cooperation = self.calculate_sentence_and_results(responses, self.rewards)
+            #Running simulation for specified number of rounds
+            results = [0,0]
+            for i in range(rounds):
+                #Generating the agent responses
+                if mode == 'iterated':
+                    agent1_response = agent1.call(self.history_p1)['message']['content']
+                    agent2_response = agent1.call(self.history_p2)['message']['content']
+                elif mode == 'standard':
+                    agent1_response = agent1.call('')['message']['content']
+                    agent2_response = agent1.call('')['message']['content']
+                initial_responses = [agent1_response, agent2_response]
 
-            #Aggregating results
-            results[0] = results[0] + result_cooperation[0]
-            results[1] = results[1] + result_cooperation[1]
+                #Extracting responses
+                responses = self.extract_responses(initial_responses)
 
-            #Adding to the history
-            if i == 0:
-                self.history_p1 = self.history_p1 + "The following is the history of previous rounds you played with the other inmate. Take this into account when making a decision."
-                self.history_p2 = self.history_p2 + "The following is the history of previous rounds you played with the other inmate. Take this into account when making a decision."
-            i_plus = i+1
-            if results[1] == 1:
-                self.history_p1 = self.history_p1 + f"\nRound {i_plus}: The other prisoner cooperated with you!"
-            elif results[1] == 0:
-                self.history_p1 = self.history_p1 + f"\nRound {i_plus}: The other prisoner betrayed you!"
-            if results[0] == 1:
-                self.history_p2 = self.history_p2 + f"\nRound {i_plus}: The other prisoner cooperated with you!"
-            elif results[0] == 0:
-                self.history_p2 = self.history_p2 + f"\nRound {i_plus}: The other prisoner betrayed you!"
+                #Calculating sentence
+                sentence, result_cooperation = self.calculate_sentence_and_results(responses, self.rewards)
 
-            #Printing responses and sentence
-            print(f"Game {i_plus}: " )
-            print(f"    {responses[0]}")
-            print(f"    {responses[1]}")
-            print("")
-            print(f"    {sentence}")
-            print("")
+                #Write round result to CSV
+                writer.writerow([i+1, responses[0], responses[1], sentence])
+
+                #Aggregating results
+                results[0] = results[0] + result_cooperation[0]
+                results[1] = results[1] + result_cooperation[1]
+
+                #Adding to the history
+                if i == 0:
+                    self.history_p1 = self.history_p1 + "The following is the history of previous rounds you played with the other inmate. Take this into account when making a decision."
+                    self.history_p2 = self.history_p2 + "The following is the history of previous rounds you played with the other inmate. Take this into account when making a decision."
+                i_plus = i+1
+                if results[1] == 1:
+                    self.history_p1 = self.history_p1 + f"\nRound {i_plus}: The other prisoner cooperated with you!"
+                elif results[1] == 0:
+                    self.history_p1 = self.history_p1 + f"\nRound {i_plus}: The other prisoner betrayed you!"
+                if results[0] == 1:
+                    self.history_p2 = self.history_p2 + f"\nRound {i_plus}: The other prisoner cooperated with you!"
+                elif results[0] == 0:
+                    self.history_p2 = self.history_p2 + f"\nRound {i_plus}: The other prisoner betrayed you!"
+
+                #Printing responses and sentence
+                print(f"Game {i_plus}: " )
+                print(f"    {responses[0]}")
+                print(f"    {responses[1]}")
+                print("")
+                print(f"    {sentence}")
+                print("")
         
-        #Printing final result
-        print("Prisoner 1 cooperated " + str(results[0]) + " times and betrayed " + str(rounds-results[0]) + " times")
-        print("Prisoner 2 cooperated " + str(results[1]) + " times and betrayed " + str(rounds-results[1]) + " times")
-        print("")
+            #Printing final result
+            print("Prisoner 1 cooperated " + str(results[0]) + " times and betrayed " + str(rounds-results[0]) + " times")
+            print("Prisoner 2 cooperated " + str(results[1]) + " times and betrayed " + str(rounds-results[1]) + " times")
+            print("")
