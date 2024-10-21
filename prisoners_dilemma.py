@@ -164,9 +164,9 @@ class prisonersDilemma:
             elif results[1] == 0:
                 self.history_p1 = self.history_p1 + f"\nRound {i_plus}: The other prisoner betrayed you!"
             if results[0] == 1:
-                self.history_p2 = self.history_p2 + f"Round {i_plus}: The other prisoner cooperated with you!"
+                self.history_p2 = self.history_p2 + f"\nRound {i_plus}: The other prisoner cooperated with you!"
             elif results[0] == 0:
-                self.history_p2 = self.history_p2 + f"Round {i_plus}: The other prisoner betrayed you!"
+                self.history_p2 = self.history_p2 + f"\nRound {i_plus}: The other prisoner betrayed you!"
 
             #Printing responses and sentence
             print(f"Round {i_plus}: " )
