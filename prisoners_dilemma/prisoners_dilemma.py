@@ -14,7 +14,7 @@ class prisonersDilemma:
                                     If both inmates betray, you each will serve """ + self.rewards[1] + """ years in prison.
                                     If one inmate betrays while the other cooperates, the betrayer will serve """ + self.rewards[3] + """ years in prison, while the cooperator will serve """ + self.rewards[2] + """" years in prison.
                                     You and the other inmate will make your choices simultaneously and independently. Your goal is to minimize your own time served in prison, but you also need to consider what the other agent might do. 
-                                    Make your decision: cooperate or betray? Please only respond with either "Cooperate" or "Betray" """
+                                    Make your decision: cooperate or betray? Always respond with either "Cooperate" or "Betray" """
 
     #Set the mode of the prisoners dilemma
     def get_mode():
@@ -28,6 +28,7 @@ class prisonersDilemma:
                 raise ValueError(f"Invalid input: {mode}. Please enter 'standard' or 'iterated'.")
         except ValueError as e:
             print(e)
+            sys.exit(1)
     
     #Get the number of rounds from the user
     def get_rounds(self):

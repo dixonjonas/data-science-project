@@ -17,7 +17,6 @@ class Agent:
             'Neuroticism': ""
         }
 
-        #TODO fix this try/except block
         try:
             for trait, value in self.big_five.items():
                 value = input(f"Please input {agent}'s degree of {trait} (High/Low): ")
@@ -34,15 +33,20 @@ class Agent:
     def call(self, history):
         response = ollama.chat(model=self.model, messages=[
             {
+                'role': 'system',
+                'content': f"""You are currently in prison. You are also a person with the following Big Five personality traits:
+                    - You are {self.big_five['Openness']} in trait 'openness'.
+                    - You are {self.big_five['Conscientiousness']} in trait 'conscientiousness'.
+                    - You are {self.big_five['Extraversion']} in trait 'extraversion'.
+                    - You are {self.big_five['Agreeableness']} in trait 'agreeableness'.
+                    - You are {self.big_five['Neuroticism']} in trait 'neuroticism'.
+
+                    Act coherently with these personality traits.
+                    """
+            },
+            {
                 'role': 'user',
-                'content': f"""You are a person with the following Big Five personality traits:
-                    You are {self.big_five['Openness']} in trait 'openness'.
-                    You are {self.big_five['Conscientiousness']} in trait 'conscientiousness'.
-                    You are {self.big_five['Extraversion']} in trait 'extraversion'.
-                    You are {self.big_five['Agreeableness']} in trait 'agreeableness'.
-                    You are {self.big_five['Neuroticism']} in trait 'neuroticism'.
-                    - Act coherently with your personality traits.
-                    """ + self.game_prompt + history,
+                'content': self.game_prompt + history
             },
         ])
         return response
