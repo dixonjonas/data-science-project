@@ -1,4 +1,4 @@
 Game,Prisoner 1 Response,Prisoner 2 Response,Sentence
-1,Prisoner 1 chooses to betray,Prisoner 2 chooses to betray,Both prisoners are sentenced to 2 year(s) in prison
-2,Prisoner 1 chooses to betray,Prisoner 2 chooses to betray,Both prisoners are sentenced to 2 year(s) in prison
-3,Prisoner 1 chooses to betray,Prisoner 2 chooses to betray,Both prisoners are sentenced to 2 year(s) in prison
+1,Prisoner 1 chooses to cooperate,Prisoner 2 chooses to cooperate,Both prisoners are sentenced to 1 year(s) in prison
+2,Prisoner 1 chooses to cooperate,Prisoner 2 chooses to cooperate,Both prisoners are sentenced to 1 year(s) in prison
+3,Prisoner 1 chooses to cooperate,Prisoner 2 chooses to cooperate,Both prisoners are sentenced to 1 year(s) in prison

@@ -15,6 +15,8 @@ class prisonersDilemma:
                                     If one inmate betrays while the other cooperates, the betrayer will serve """ + self.rewards[3] + """ years in prison, while the cooperator will serve """ + self.rewards[2] + """" years in prison.
                                     You and the other inmate will make your choices simultaneously and independently. Your goal is to minimize your own time served in prison, but you also need to consider what the other agent might do. 
                                     Make your decision: cooperate or betray? Always respond with either "Cooperate" or "Betray" """
+        self.agent1 = Agent(self.game_prompt)
+        self.agent2 = Agent(self.game_prompt)
 
     #Set the mode of the prisoners dilemma
     def get_mode():
@@ -45,13 +47,28 @@ class prisonersDilemma:
         
         return round_integer
 
+    #Function to call the LLM agents to generate a response
+    def call_agents(self, history_agent1, history_agent2):
+        agent1_response = ""
+        agent2_response = ""
+        while True:
+            agent1_response = self.agent1.call(history_agent1)['message']['content']
+            if "cooperate" in agent1_response.lower() or "betray" in agent1_response.lower():
+                break
+        while True:
+            agent2_response = self.agent2.call(history_agent2)['message']['content']
+            if "cooperate" in agent2_response.lower() or "betray" in agent2_response.lower():
+                break
+
+        return agent1_response, agent2_response
+
     #Function to extract 'Cooperate' or 'Betray' from Agent response
     def extract_responses(self, initial_responses):
         extracted_responses = []
         for index, response in enumerate(initial_responses):
-            if "Cooperate" in response:
+            if "cooperate" in response.lower():
                 extracted_responses.append("Prisoner " + str(index+1) + " chooses to cooperate")
-            elif "Betray" in response:
+            elif "betray" in response.lower():
                 extracted_responses.append("Prisoner " + str(index+1) + " chooses to betray")
         
         return extracted_responses
@@ -60,16 +77,16 @@ class prisonersDilemma:
     def calculate_sentence_and_results(self, extracted_responses, rewards):
         result_cooperation = [0,0]
         sentence = ""
-        if "cooperate" in extracted_responses[0] and "cooperate" in extracted_responses[1]:
+        if "cooperate" in extracted_responses[0].lower() and "cooperate" in extracted_responses[1].lower():
             sentence = "Both prisoners are sentenced to " + rewards[0] + " year(s) in prison"
             result_cooperation[0] = 1
             result_cooperation[1] = 1
-        elif "betray" in extracted_responses[0] and "betray" in extracted_responses[1]:
+        elif "betray" in extracted_responses[0].lower() and "betray" in extracted_responses[1].lower():
             sentence = "Both prisoners are sentenced to " + rewards[1] + " year(s) in prison"
-        elif "betray" in extracted_responses[0] and "cooperate" in extracted_responses[1]:
+        elif "betray" in extracted_responses[0].lower() and "cooperate" in extracted_responses[1].lower():
             sentence = "Prisoner 1 is sentenced to " + rewards[3] + " and prisoner 2 is sentenced to " + rewards[2] + " year(s) in prison"
             result_cooperation[1] = 1
-        elif "cooperate" in extracted_responses[0] and "betray" in extracted_responses[1]:
+        elif "cooperate" in extracted_responses[0].lower() and "betray" in extracted_responses[1].lower():
             sentence = "Prisoner 1 is sentenced to " + rewards[2] + " and prisoner 2 is sentenced to " + rewards[3] + " year(s) in prison"
             result_cooperation[0] = 1
 
@@ -81,29 +98,23 @@ class prisonersDilemma:
         #Creating .csv file
         with open('prisoners_dilemma/prisoners_dilemma_results.csv', mode='w', newline='') as file:
             writer = csv.writer(file)
-            writer.writerow(['Game', 'Prisoner 1 Response', 'Prisoner 2 Response', 'Sentence'])
-
-            #Creating agents
-            agent1 = Agent(self.game_prompt)
-            agent2 = Agent(self.game_prompt)
+            writer.writerow(['Game', 'Prisoner 1 Response', 'Prisoner 2 Response', 'Sentence'])       
 
             #Asking user for how many rounds they want to run
             rounds = self.get_rounds()
 
             #Asking the user for personality inputs
-            agent1.get_big_five("prisoner 1")
-            agent2.get_big_five("prisoner 2")
+            self.agent1.get_big_five("prisoner 1")
+            self.agent2.get_big_five("prisoner 2")
 
             #Running simulation for specified number of rounds
             results = [0,0]
             for i in range(rounds):
                 #Generating the agent responses
                 if mode == 'iterated':
-                    agent1_response = agent1.call(self.history_p1)['message']['content']
-                    agent2_response = agent1.call(self.history_p2)['message']['content']
+                    agent1_response, agent2_response = self.call_agents(self.history_p1, self.history_p2)
                 elif mode == 'standard':
-                    agent1_response = agent1.call('')['message']['content']
-                    agent2_response = agent1.call('')['message']['content']
+                    agent1_response, agent2_response = self.call_agents('', '')
                 initial_responses = [agent1_response, agent2_response]
 
                 #Extracting responses
