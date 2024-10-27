@@ -25,7 +25,7 @@ class prisonersDilemma:
             if mode.lower() == "standard" or mode.lower() == "iterated":
                 return mode.lower()
             else:
-                raise ValueError(f"Invalid input: {mode}. Please enter 'standard' or 'iterated'.")
+                raise ValueError(f"Invalid input: {mode}. Please enter 'Standard' or 'Iterated'.")
         except ValueError as e:
             print(e)
             sys.exit(1)
