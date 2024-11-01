@@ -1,6 +1,7 @@
 import ollama
 import sys
 import csv
+import random
 from agent import Agent
 
 class prisonersDilemma:
@@ -17,6 +18,8 @@ class prisonersDilemma:
                                     Make your decision: cooperate or betray? Always respond with only "Cooperate" or "Betray", do not write anything else. """
         self.agent1 = Agent(self.game_prompt)
         self.agent2 = Agent(self.game_prompt)
+        self.big_five_p1 = {}
+        self.big_five_p2 = {}
 
     #Set the mode of the prisoners dilemma
     def get_mode():
@@ -49,14 +52,42 @@ class prisonersDilemma:
 
     #Function to call the LLM agents to generate a response
     def call_agents(self, history_agent1, history_agent2):
+        big_five_dict_p1 = {
+            'Openness': "",
+            'Conscientiousness': "",
+            'Extraversion': "",
+            'Agreeableness': "",
+            'Neuroticism': ""
+        }
+
+        big_five_dict_p2 = {
+            'Openness': "",
+            'Conscientiousness': "",
+            'Extraversion': "",
+            'Agreeableness': "",
+            'Neuroticism': ""
+        }
+
+        for category in big_five_dict_p1:
+            if self.big_five_p1[category] != 'random':
+                big_five_dict_p1[category] = self.big_five_p1[category]
+            else:
+                big_five_dict_p1[category] = random.choice(["high", "medium", "low"])
+
+        for category in big_five_dict_p2:
+            if self.big_five_p2[category] != 'random':
+                big_five_dict_p2[category] = self.big_five_p2[category]
+            else:
+                big_five_dict_p2[category] = random.choice(["high", "medium", "low"])
+
         agent1_response = ""
         agent2_response = ""
         while True:
-            agent1_response = self.agent1.call(history_agent1)['message']['content']
+            agent1_response = self.agent1.call(history_agent1, big_five_dict_p1)['message']['content']
             if "cooperate" in agent1_response.lower() or "betray" in agent1_response.lower():
                 break
         while True:
-            agent2_response = self.agent2.call(history_agent2)['message']['content']
+            agent2_response = self.agent2.call(history_agent2, big_five_dict_p2)['message']['content']
             if "cooperate" in agent2_response.lower() or "betray" in agent2_response.lower():
                 break
 
@@ -94,7 +125,6 @@ class prisonersDilemma:
 
     #Function to run the prisoners dilemma
     def run_prisoners_dilemma(self, mode) -> None:
-        #TODO fix bug where the LLM seems to not generate a response resulting in list out of range error
         #Creating .csv file
         with open('prisoners_dilemma/prisoners_dilemma_results.csv', mode='w', newline='') as file:
             writer = csv.writer(file)
@@ -104,8 +134,8 @@ class prisonersDilemma:
             rounds = self.get_rounds()
 
             #Asking the user for personality inputs
-            self.agent1.get_big_five("prisoner 1")
-            self.agent2.get_big_five("prisoner 2")
+            self.big_five_p1 = self.agent1.get_big_five("prisoner 1")
+            self.big_five_p2 = self.agent2.get_big_five("prisoner 2")
 
             #Running simulation for specified number of rounds
             results = [0,0]
@@ -124,7 +154,7 @@ class prisonersDilemma:
                 sentence, result_cooperation = self.calculate_sentence_and_results(responses, self.rewards)
 
                 #Write round result to CSV
-                writer.writerow([i+1, responses[0], responses[1], sentence])
+                writer.writerow([i+1, initial_responses[0], initial_responses[1], sentence])
 
                 #Aggregating results
                 results[0] = results[0] + result_cooperation[0]
