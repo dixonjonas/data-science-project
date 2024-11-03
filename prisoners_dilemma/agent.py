@@ -45,7 +45,6 @@ class Agent:
     
     # Calling the agent to act
     def call(self, history, big_five):
-        print(big_five)
         if self.personality == "yes":
             response = ollama.chat(model=self.model, messages=[
                 {
