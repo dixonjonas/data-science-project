@@ -72,13 +72,14 @@ class prisonersDilemma:
             if self.big_five_p1[category] != 'random':
                 big_five_dict_p1[category] = self.big_five_p1[category]
             else:
-                big_five_dict_p1[category] = random.choice(["high", "medium", "low"])
+                big_five_dict_p1[category] = Agent.assign_trait()
 
         for category in big_five_dict_p2:
             if self.big_five_p2[category] != 'random':
                 big_five_dict_p2[category] = self.big_five_p2[category]
             else:
-                big_five_dict_p2[category] = random.choice(["high", "medium", "low"])
+                big_five_dict_p2[category] = Agent.assign_trait()
+        print(big_five_dict_p1)
 
         agent1_response = ""
         agent2_response = ""

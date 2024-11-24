@@ -1,11 +1,22 @@
 import ollama
 import sys
+import random
 
 class Agent:
     def __init__(self, game_prompt, model="llama3.2") -> None:
         self.model = model
         self.game_prompt = game_prompt
         self.personality = ""
+    
+    # Randomly generate personality traits with a "normal" distribution
+    def assign_trait():
+        r = random.random() 
+        if r < 0.15865:
+            return "high"
+        elif r < 0.84135:
+            return "average"
+        else:
+            return "low"
     
     # Get input of the agent's personality
     def get_big_five(self, agent):
@@ -31,11 +42,11 @@ class Agent:
         if self.personality == "yes":
             try:
                 for trait in big_five.keys():
-                    value = input(f"Please input {agent}'s degree of {trait} (High/Medium/Low/Random): ")
-                    if value.lower() in ["high", "medium", "low", "random"]:
+                    value = input(f"Please input {agent}'s degree of {trait} (High/Average/Low/Random): ")
+                    if value.lower() in ["high", "average", "low", "random"]:
                         big_five[trait] = value.lower()
                     else:
-                        raise ValueError(f"Invalid input: {value}. Please enter 'High', 'Medium', 'Low' or 'Random'.")
+                        raise ValueError(f"Invalid input: {value}. Please enter 'High', 'Average', 'Low' or 'Random'.")
             except ValueError as e:
                 print(e)
                 sys.exit(1)
