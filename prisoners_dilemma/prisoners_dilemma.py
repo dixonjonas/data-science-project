@@ -34,16 +34,31 @@ class prisonersDilemma:
         except ValueError as e:
             print(e)
             sys.exit(1)
+
+    #Get the number of games from the user
+    def get_games(self):
+        game_integer = 0
+        try:
+            games = input("Please enter the number of games you want to run the simulation for: ")
+            print("")
+            game_integer = int(games)
+            if game_integer > 10000:
+                raise ValueError("Invalid input! Please enter an integer no larger than 10000.")
+        except ValueError:
+            print("Invalid input! Please enter a valid integer.")
+            sys.exit(1)
+        
+        return game_integer
     
     #Get the number of rounds from the user
     def get_rounds(self):
         round_integer = 0
         try:
-            rounds = input("Please enter the number of rounds you want to run the simulation for (up to 100): ")
+            rounds = input("Please enter the number of rounds you want to run the simulation for: ")
             print("")
             round_integer = int(rounds)
-            if round_integer > 100:
-                raise ValueError("Invalid input! Please enter an integer no larger than 100.")
+            if round_integer > 10000:
+                raise ValueError("Invalid input! Please enter an integer no larger than 10000.")
         except ValueError:
             print("Invalid input! Please enter a valid integer.")
             sys.exit(1)
@@ -131,58 +146,73 @@ class prisonersDilemma:
             writer.writerow(['Game', 'Prisoner 1 Response', 'Prisoner 2 Response', 'Sentence'])       
 
             #Asking user for how many rounds they want to run
-            rounds = self.get_rounds()
+            if mode == 'standard':
+                games = 1
+                rounds = self.get_rounds()
+            elif mode == 'iterated':
+                games = self.get_games()
+                rounds = self.get_rounds()
 
             #Asking the user for personality inputs
             self.big_five_p1 = self.agent1.get_big_five("prisoner 1")
             self.big_five_p2 = self.agent2.get_big_five("prisoner 2")
 
-            #Running simulation for specified number of rounds
+            #Running simulation for specified number of games and rounds
             results = [0,0]
-            for i in range(rounds):
-                #Generating the agent responses
+            for g in range (games):
+                #Wiping the memory clean
+                self.history_p1 = ""
+                self.history_p2 = ""
+
+                # Printing game info for iterated PD
                 if mode == 'iterated':
-                    agent1_response, agent2_response = self.call_agents(self.history_p1, self.history_p2)
-                elif mode == 'standard':
-                    agent1_response, agent2_response = self.call_agents('', '')
-                initial_responses = [agent1_response, agent2_response]
+                    print(f"***Game: {g+1}***")
 
-                #Extracting responses
-                responses = self.extract_responses(initial_responses)
+                #Running simulation for specified number of rounds
+                for i in range(rounds):
+                    #Generating the agent responses
+                    if mode == 'iterated':
+                        agent1_response, agent2_response = self.call_agents(self.history_p1, self.history_p2)
+                    elif mode == 'standard':
+                        agent1_response, agent2_response = self.call_agents('', '')
+                    initial_responses = [agent1_response, agent2_response]
 
-                #Calculating sentence
-                sentence, result_cooperation = self.calculate_sentence_and_results(responses, self.rewards)
+                    #Extracting responses
+                    responses = self.extract_responses(initial_responses)
 
-                #Write round result to CSV
-                writer.writerow([i+1, initial_responses[0], initial_responses[1], sentence])
+                    #Calculating sentence
+                    sentence, result_cooperation = self.calculate_sentence_and_results(responses, self.rewards)
 
-                #Aggregating results
-                results[0] = results[0] + result_cooperation[0]
-                results[1] = results[1] + result_cooperation[1]
+                    #Write round result to CSV
+                    writer.writerow([i+1, initial_responses[0], initial_responses[1], sentence])
 
-                #Adding to the history
-                if i == 0:
-                    self.history_p1 = self.history_p1 + "The following is the history of previous rounds you played with the other inmate. Take this into account when making a decision."
-                    self.history_p2 = self.history_p2 + "The following is the history of previous rounds you played with the other inmate. Take this into account when making a decision."
-                i_plus = i+1
-                if results[1] == 1:
-                    self.history_p1 = self.history_p1 + f"\nRound {i_plus}: The other prisoner cooperated with you!"
-                elif results[1] == 0:
-                    self.history_p1 = self.history_p1 + f"\nRound {i_plus}: The other prisoner betrayed you!"
-                if results[0] == 1:
-                    self.history_p2 = self.history_p2 + f"\nRound {i_plus}: The other prisoner cooperated with you!"
-                elif results[0] == 0:
-                    self.history_p2 = self.history_p2 + f"\nRound {i_plus}: The other prisoner betrayed you!"
+                    #Aggregating results
+                    results[0] = results[0] + result_cooperation[0]
+                    results[1] = results[1] + result_cooperation[1]
 
-                #Printing responses and sentence
-                print(f"Game {i_plus}: " )
-                print(f"    {responses[0]}")
-                print(f"    {responses[1]}")
-                print("")
-                print(f"    {sentence}")
-                print("")
+                    #Adding to the history
+                    if i == 0:
+                        self.history_p1 = self.history_p1 + "The following is the history of previous rounds you played with the other inmate. Take this into account when making a decision."
+                        self.history_p2 = self.history_p2 + "The following is the history of previous rounds you played with the other inmate. Take this into account when making a decision."
+                    i_plus = i+1
+                    if result_cooperation[1] == 1:
+                        self.history_p1 = self.history_p1 + f"\nRound {i_plus}: The other prisoner cooperated with you!"
+                    elif result_cooperation[1] == 0:
+                        self.history_p1 = self.history_p1 + f"\nRound {i_plus}: The other prisoner betrayed you!"
+                    if result_cooperation[0] == 1:
+                        self.history_p2 = self.history_p2 + f"\nRound {i_plus}: The other prisoner cooperated with you!"
+                    elif result_cooperation[0] == 0:
+                        self.history_p2 = self.history_p2 + f"\nRound {i_plus}: The other prisoner betrayed you!"
+
+                    #Printing responses and sentence
+                    print(f"Round {i_plus}: " )
+                    print(f"    {responses[0]}")
+                    print(f"    {responses[1]}")
+                    print("")
+                    print(f"    {sentence}")
+                    print("")
         
             #Printing final result
-            print("Prisoner 1 cooperated " + str(results[0]) + " times and betrayed " + str(rounds-results[0]) + " times")
-            print("Prisoner 2 cooperated " + str(results[1]) + " times and betrayed " + str(rounds-results[1]) + " times")
+            print("Prisoner 1 cooperated " + str(results[0]) + " times and betrayed " + str((rounds*games)-results[0]) + " times")
+            print("Prisoner 2 cooperated " + str(results[1]) + " times and betrayed " + str((rounds*games)-results[1]) + " times")
             print("")

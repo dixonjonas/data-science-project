@@ -1,11 +1,16 @@
 Game,Prisoner 1 Response,Prisoner 2 Response,Sentence
-1,Cooperate,Betray,Prisoner 1 is sentenced to 3 and prisoner 2 is sentenced to 0 year(s) in prison
-2,Cooperate,Betray,Prisoner 1 is sentenced to 3 and prisoner 2 is sentenced to 0 year(s) in prison
-3,Cooperate,Betray,Prisoner 1 is sentenced to 3 and prisoner 2 is sentenced to 0 year(s) in prison
-4,Cooperate,Betray,Prisoner 1 is sentenced to 3 and prisoner 2 is sentenced to 0 year(s) in prison
-5,Betray,Betray,Both prisoners are sentenced to 2 year(s) in prison
-6,Cooperate,Betray,Prisoner 1 is sentenced to 3 and prisoner 2 is sentenced to 0 year(s) in prison
-7,Cooperate,Betray,Prisoner 1 is sentenced to 3 and prisoner 2 is sentenced to 0 year(s) in prison
-8,Cooperate,Betray,Prisoner 1 is sentenced to 3 and prisoner 2 is sentenced to 0 year(s) in prison
-9,Cooperate,Betray,Prisoner 1 is sentenced to 3 and prisoner 2 is sentenced to 0 year(s) in prison
-10,Cooperate,Betray,Prisoner 1 is sentenced to 3 and prisoner 2 is sentenced to 0 year(s) in prison
+1,Cooperate,Cooperate,Both prisoners are sentenced to 1 year(s) in prison
+2,Cooperate,Cooperate,Both prisoners are sentenced to 1 year(s) in prison
+3,Cooperate,Cooperate,Both prisoners are sentenced to 1 year(s) in prison
+1,Cooperate,Cooperate,Both prisoners are sentenced to 1 year(s) in prison
+2,Cooperate,Cooperate,Both prisoners are sentenced to 1 year(s) in prison
+3,Cooperate,Cooperate,Both prisoners are sentenced to 1 year(s) in prison
+1,Betray,Betray,Both prisoners are sentenced to 2 year(s) in prison
+2,Betray,Betray,Both prisoners are sentenced to 2 year(s) in prison
+3,Betray,Betray,Both prisoners are sentenced to 2 year(s) in prison
+1,Betray,Betray,Both prisoners are sentenced to 2 year(s) in prison
+2,Betray,Betray,Both prisoners are sentenced to 2 year(s) in prison
+3,Betray,Betray,Both prisoners are sentenced to 2 year(s) in prison
+1,Cooperate,Cooperate,Both prisoners are sentenced to 1 year(s) in prison
+2,Cooperate,Cooperate,Both prisoners are sentenced to 1 year(s) in prison
+3,Cooperate,Cooperate,Both prisoners are sentenced to 1 year(s) in prison
