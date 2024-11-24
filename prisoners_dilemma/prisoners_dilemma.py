@@ -79,7 +79,6 @@ class prisonersDilemma:
                 big_five_dict_p2[category] = self.big_five_p2[category]
             else:
                 big_five_dict_p2[category] = Agent.assign_trait()
-        print(big_five_dict_p1)
 
         agent1_response = ""
         agent2_response = ""
