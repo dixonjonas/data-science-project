@@ -18,8 +18,24 @@ class prisonersDilemma:
                                     Make your decision: cooperate or betray? Always respond with only "Cooperate" or "Betray", do not write anything else. """
         self.agent1 = Agent(self.game_prompt)
         self.agent2 = Agent(self.game_prompt)
-        self.big_five_p1 = {}
-        self.big_five_p2 = {}
+        self.big_five_p1 = {
+            'Openness': "",
+            'Conscientiousness': "",
+            'Extraversion': "",
+            'Agreeableness': "",
+            'Neuroticism': ""
+            }
+        self.big_five_p2 = {
+            'Openness': "",
+            'Conscientiousness': "",
+            'Extraversion': "",
+            'Agreeableness': "",
+            'Neuroticism': ""
+            }
+        self.agent1_status = 'llm'
+        self.agent1_status = 'llm'
+        self.agent1_cooperation_rate = 0.0
+        self.agent2_cooperation_rate = 0.0
 
     #Set the mode of the prisoners dilemma
     def get_mode():
@@ -34,6 +50,26 @@ class prisonersDilemma:
         except ValueError as e:
             print(e)
             sys.exit(1)
+
+    #Set the cooperation rate
+    def get_cooperation_rate(self, agent):
+        try:
+            cooperation_rate = input(f"Please enter the cooperation rate of {agent} as a decimal between 0 and 1: ")
+            print("")
+            if float(cooperation_rate) >= 0.0 and float(cooperation_rate) <= 1.0:
+                return float(cooperation_rate)
+            else:
+                raise ValueError(f"Invalid input: {cooperation_rate}. Please enter a decimal between 0 and 1.")
+        except ValueError as e:
+            print(e)
+            sys.exit(1)
+
+    #Generate a response based on the set cooperation rate
+    def generate_response_random(self, cooperation_rate):
+        if random.random() < cooperation_rate:
+            return 'cooperate'
+        else:
+            return 'betray'
 
     #Get the number of games from the user
     def get_games(self):
@@ -153,9 +189,20 @@ class prisonersDilemma:
                 games = self.get_games()
                 rounds = self.get_rounds()
 
+            #Checking the mode and getting the cooperation rate if necessary
+            if mode.lower() == 'iterated':
+                self.agent1_status = self.agent1.get_agent_status("prisoner 1")
+                self.agent2_status = self.agent2.get_agent_status("prisoner 2")
+                if self.agent1_status.lower() == 'set rate':
+                    self.agent1_cooperation_rate = self.get_cooperation_rate("prisoner 1")
+                if self.agent2_status.lower() == 'set rate':
+                    self.agent2_cooperation_rate = self.get_cooperation_rate("prisoner 2")
+
             #Asking the user for personality inputs
-            self.big_five_p1 = self.agent1.get_big_five("prisoner 1")
-            self.big_five_p2 = self.agent2.get_big_five("prisoner 2")
+            if self.agent1_status.lower() == 'llm':
+                self.big_five_p1 = self.agent1.get_big_five("prisoner 1")
+            if self.agent2_status.lower() == 'llm':
+                self.big_five_p2 = self.agent2.get_big_five("prisoner 2")
 
             #Running simulation for specified number of games and rounds
             results = [0,0]
@@ -176,6 +223,12 @@ class prisonersDilemma:
                     elif mode == 'standard':
                         agent1_response, agent2_response = self.call_agents('', '')
                     initial_responses = [agent1_response, agent2_response]
+
+                    #Generate responses with set rate if specified
+                    if self.agent1_status.lower() == 'set rate':
+                        initial_responses[0] = self.generate_response_random(self.agent1_cooperation_rate)
+                    if self.agent2_status.lower() == 'set rate':
+                        initial_responses[1] = self.generate_response_random(self.agent2_cooperation_rate)
 
                     #Extracting responses
                     responses = self.extract_responses(initial_responses)

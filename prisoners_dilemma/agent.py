@@ -17,6 +17,19 @@ class Agent:
             return "average"
         else:
             return "low"
+
+    #Set the agent as an LLM or as a set cooperation rate
+    def get_agent_status(self, agent):
+        try:
+            status = input(f"Do you want {agent} to be an LLM or a set cooperation rate? Enter 'LLM' or 'Set rate': ")
+            print("")
+            if status.lower() == "llm" or status.lower() == "set rate":
+                return status.lower()
+            else:
+                raise ValueError(f"Invalid input: {status}. Please enter 'LLM' or 'Set rate'.")
+        except ValueError as e:
+            print(e)
+            sys.exit(1)
     
     # Get input of the agent's personality
     def get_big_five(self, agent):
