@@ -1,0 +1,107 @@
+Game,Prisoner 1 Response,Prisoner 2 Response,Sentence
+Prisoner 1 Traits
+Openness,Conscientiousness,Extraversion,Agreeableness,Neuroticism
+average,average,average,average,average
+Prisoner 2 Traits
+Openness,Conscientiousness,Extraversion,Agreeableness,Neuroticism
+random,random,random,random,random
+1,Betray,Cooperate,Prisoner 1 is sentenced to 0 and prisoner 2 is sentenced to 3 year(s) in prison
+2,Betray,Betray,Both prisoners are sentenced to 2 year(s) in prison
+3,Betray,Cooperate,Prisoner 1 is sentenced to 0 and prisoner 2 is sentenced to 3 year(s) in prison
+4,Cooperate,Betray,Prisoner 1 is sentenced to 3 and prisoner 2 is sentenced to 0 year(s) in prison
+5,Betray,Betray,Both prisoners are sentenced to 2 year(s) in prison
+6,Betray,Cooperate,Prisoner 1 is sentenced to 0 and prisoner 2 is sentenced to 3 year(s) in prison
+7,Betray,Betray,Both prisoners are sentenced to 2 year(s) in prison
+8,Cooperate,Betray,Prisoner 1 is sentenced to 3 and prisoner 2 is sentenced to 0 year(s) in prison
+9,Betray,Betray,Both prisoners are sentenced to 2 year(s) in prison
+10,Betray,Betray,Both prisoners are sentenced to 2 year(s) in prison
+11,Betray,Cooperate,Prisoner 1 is sentenced to 0 and prisoner 2 is sentenced to 3 year(s) in prison
+12,Cooperate,Cooperate,Both prisoners are sentenced to 1 year(s) in prison
+13,Cooperate,Cooperate,Both prisoners are sentenced to 1 year(s) in prison
+14,Betray,Betray,Both prisoners are sentenced to 2 year(s) in prison
+15,Betray,Betray,Both prisoners are sentenced to 2 year(s) in prison
+16,Cooperate,Cooperate,Both prisoners are sentenced to 1 year(s) in prison
+17,Cooperate,Cooperate,Both prisoners are sentenced to 1 year(s) in prison
+18,Betray,Cooperate,Prisoner 1 is sentenced to 0 and prisoner 2 is sentenced to 3 year(s) in prison
+19,Betray,Betray,Both prisoners are sentenced to 2 year(s) in prison
+20,Betray,Cooperate,Prisoner 1 is sentenced to 0 and prisoner 2 is sentenced to 3 year(s) in prison
+21,Betray,Cooperate,Prisoner 1 is sentenced to 0 and prisoner 2 is sentenced to 3 year(s) in prison
+22,Cooperate,Cooperate,Both prisoners are sentenced to 1 year(s) in prison
+23,Cooperate,Betray,Prisoner 1 is sentenced to 3 and prisoner 2 is sentenced to 0 year(s) in prison
+24,Cooperate,Cooperate,Both prisoners are sentenced to 1 year(s) in prison
+25,Betray,Cooperate,Prisoner 1 is sentenced to 0 and prisoner 2 is sentenced to 3 year(s) in prison
+26,Cooperate,Cooperate,Both prisoners are sentenced to 1 year(s) in prison
+27,Cooperate,Betray,Prisoner 1 is sentenced to 3 and prisoner 2 is sentenced to 0 year(s) in prison
+28,Cooperate,Betray,Prisoner 1 is sentenced to 3 and prisoner 2 is sentenced to 0 year(s) in prison
+29,Betray,Cooperate,Prisoner 1 is sentenced to 0 and prisoner 2 is sentenced to 3 year(s) in prison
+30,Cooperate,Betray,Prisoner 1 is sentenced to 3 and prisoner 2 is sentenced to 0 year(s) in prison
+31,Cooperate,Betray,Prisoner 1 is sentenced to 3 and prisoner 2 is sentenced to 0 year(s) in prison
+32,Cooperate,Cooperate,Both prisoners are sentenced to 1 year(s) in prison
+33,Cooperate,Betray,Prisoner 1 is sentenced to 3 and prisoner 2 is sentenced to 0 year(s) in prison
+34,Cooperate,Betray,Prisoner 1 is sentenced to 3 and prisoner 2 is sentenced to 0 year(s) in prison
+35,Cooperate,Cooperate,Both prisoners are sentenced to 1 year(s) in prison
+36,Cooperate,Cooperate,Both prisoners are sentenced to 1 year(s) in prison
+37,Betray,Betray,Both prisoners are sentenced to 2 year(s) in prison
+38,Betray,Betray,Both prisoners are sentenced to 2 year(s) in prison
+39,Cooperate,Cooperate,Both prisoners are sentenced to 1 year(s) in prison
+40,Betray,Cooperate,Prisoner 1 is sentenced to 0 and prisoner 2 is sentenced to 3 year(s) in prison
+41,Betray,Betray,Both prisoners are sentenced to 2 year(s) in prison
+42,Cooperate,Betray,Prisoner 1 is sentenced to 3 and prisoner 2 is sentenced to 0 year(s) in prison
+43,Cooperate,Cooperate,Both prisoners are sentenced to 1 year(s) in prison
+44,Cooperate,Cooperate,Both prisoners are sentenced to 1 year(s) in prison
+45,Cooperate,Cooperate,Both prisoners are sentenced to 1 year(s) in prison
+46,Betray,Cooperate,Prisoner 1 is sentenced to 0 and prisoner 2 is sentenced to 3 year(s) in prison
+47,Cooperate,Betray,Prisoner 1 is sentenced to 3 and prisoner 2 is sentenced to 0 year(s) in prison
+48,Cooperate,Betray,Prisoner 1 is sentenced to 3 and prisoner 2 is sentenced to 0 year(s) in prison
+49,Cooperate,Betray,Prisoner 1 is sentenced to 3 and prisoner 2 is sentenced to 0 year(s) in prison
+50,Cooperate,Betray,Prisoner 1 is sentenced to 3 and prisoner 2 is sentenced to 0 year(s) in prison
+51,Betray,Betray,Both prisoners are sentenced to 2 year(s) in prison
+52,Cooperate,Cooperate,Both prisoners are sentenced to 1 year(s) in prison
+53,Cooperate,Betray,Prisoner 1 is sentenced to 3 and prisoner 2 is sentenced to 0 year(s) in prison
+54,Betray,Cooperate,Prisoner 1 is sentenced to 0 and prisoner 2 is sentenced to 3 year(s) in prison
+55,Cooperate,Cooperate,Both prisoners are sentenced to 1 year(s) in prison
+56,Cooperate,Cooperate,Both prisoners are sentenced to 1 year(s) in prison
+57,Betray,Cooperate,Prisoner 1 is sentenced to 0 and prisoner 2 is sentenced to 3 year(s) in prison
+58,Cooperate,Cooperate,Both prisoners are sentenced to 1 year(s) in prison
+59,Cooperate,Cooperate,Both prisoners are sentenced to 1 year(s) in prison
+60,Betray,Cooperate,Prisoner 1 is sentenced to 0 and prisoner 2 is sentenced to 3 year(s) in prison
+61,Cooperate,Cooperate,Both prisoners are sentenced to 1 year(s) in prison
+62,Cooperate,Cooperate,Both prisoners are sentenced to 1 year(s) in prison
+63,Betray,Betray,Both prisoners are sentenced to 2 year(s) in prison
+64,Cooperate,Cooperate,Both prisoners are sentenced to 1 year(s) in prison
+65,Cooperate,Betray,Prisoner 1 is sentenced to 3 and prisoner 2 is sentenced to 0 year(s) in prison
+66,Cooperate,Cooperate,Both prisoners are sentenced to 1 year(s) in prison
+67,Betray,Betray,Both prisoners are sentenced to 2 year(s) in prison
+68,Betray,Betray,Both prisoners are sentenced to 2 year(s) in prison
+69,Cooperate,Cooperate,Both prisoners are sentenced to 1 year(s) in prison
+70,Betray,Cooperate,Prisoner 1 is sentenced to 0 and prisoner 2 is sentenced to 3 year(s) in prison
+71,Betray,Betray,Both prisoners are sentenced to 2 year(s) in prison
+72,Betray,Betray,Both prisoners are sentenced to 2 year(s) in prison
+73,Betray,Betray,Both prisoners are sentenced to 2 year(s) in prison
+74,Betray,Cooperate,Prisoner 1 is sentenced to 0 and prisoner 2 is sentenced to 3 year(s) in prison
+75,Cooperate,Betray,Prisoner 1 is sentenced to 3 and prisoner 2 is sentenced to 0 year(s) in prison
+76,Cooperate,Betray,Prisoner 1 is sentenced to 3 and prisoner 2 is sentenced to 0 year(s) in prison
+77,Cooperate,Cooperate,Both prisoners are sentenced to 1 year(s) in prison
+78,Cooperate,Betray,Prisoner 1 is sentenced to 3 and prisoner 2 is sentenced to 0 year(s) in prison
+79,Cooperate,Betray,Prisoner 1 is sentenced to 3 and prisoner 2 is sentenced to 0 year(s) in prison
+80,Cooperate,Betray,Prisoner 1 is sentenced to 3 and prisoner 2 is sentenced to 0 year(s) in prison
+81,Betray,Cooperate,Prisoner 1 is sentenced to 0 and prisoner 2 is sentenced to 3 year(s) in prison
+82,Betray,Cooperate,Prisoner 1 is sentenced to 0 and prisoner 2 is sentenced to 3 year(s) in prison
+83,Cooperate,Betray,Prisoner 1 is sentenced to 3 and prisoner 2 is sentenced to 0 year(s) in prison
+84,Betray,Betray,Both prisoners are sentenced to 2 year(s) in prison
+85,Cooperate,Betray,Prisoner 1 is sentenced to 3 and prisoner 2 is sentenced to 0 year(s) in prison
+86,Cooperate,Cooperate,Both prisoners are sentenced to 1 year(s) in prison
+87,Cooperate,Cooperate,Both prisoners are sentenced to 1 year(s) in prison
+88,Betray,Betray,Both prisoners are sentenced to 2 year(s) in prison
+89,Cooperate,Cooperate,Both prisoners are sentenced to 1 year(s) in prison
+90,Cooperate,Cooperate,Both prisoners are sentenced to 1 year(s) in prison
+91,Cooperate,Betray,Prisoner 1 is sentenced to 3 and prisoner 2 is sentenced to 0 year(s) in prison
+92,Cooperate,Betray,Prisoner 1 is sentenced to 3 and prisoner 2 is sentenced to 0 year(s) in prison
+93,Betray,Cooperate,Prisoner 1 is sentenced to 0 and prisoner 2 is sentenced to 3 year(s) in prison
+94,Betray,Cooperate,Prisoner 1 is sentenced to 0 and prisoner 2 is sentenced to 3 year(s) in prison
+95,Betray,Cooperate,Prisoner 1 is sentenced to 0 and prisoner 2 is sentenced to 3 year(s) in prison
+96,Cooperate,Cooperate,Both prisoners are sentenced to 1 year(s) in prison
+97,Betray,Betray,Both prisoners are sentenced to 2 year(s) in prison
+98,Betray,Cooperate,Prisoner 1 is sentenced to 0 and prisoner 2 is sentenced to 3 year(s) in prison
+99,Betray,Betray,Both prisoners are sentenced to 2 year(s) in prison
+100,Betray,Betray,Both prisoners are sentenced to 2 year(s) in prison
