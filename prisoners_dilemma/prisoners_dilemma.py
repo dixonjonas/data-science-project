@@ -10,12 +10,12 @@ class prisonersDilemma:
         self.history_p1 = ""
         self.history_p2 = ""
         self.rewards = rewards
-        self.game_prompt = """You are participating in a game called the "Prisoner's Dilemma." In this game, you and another prisoner are being questioned separately. Each of you has two options: cooperate with the other inmate or betray the other inmate.
-                                    If both inmates cooperate, you each will serve """ + self.rewards[0] + """ years in prison.
-                                    If both inmates betray, you each will serve """ + self.rewards[1] + """ years in prison.
-                                    If one inmate betrays while the other cooperates, the betrayer will serve """ + self.rewards[3] + """ years in prison, while the cooperator will serve """ + self.rewards[2] + """" years in prison.
-                                    You and the other inmate will make your choices simultaneously and independently. Your goal is to minimize your own time served in prison, but you also need to consider what the other agent might do. 
-                                    Make your decision: cooperate or betray? Always respond with only "Cooperate" or "Betray", do not write anything else. """
+        self.game_prompt = """You are participating in the "Prisoner's Dilemma" with another inmate. In this game each of you has the option to either cooperate with the other inmate or betray the other inmate.
+                                    If both inmates cooperate, you will each serve """ + self.rewards[0] + """ years in prison.
+                                    If both inmates betray, you will each serve """ + self.rewards[1] + """ years in prison.
+                                    If one inmate betrays and the other cooperates, the betrayer will serve """ + self.rewards[3] + """ years in prison, while the cooperator will serve """ + self.rewards[2] + """" years in prison.
+                                    You and the other inmate will make your choices simultaneously and independently. Your goal is to server as little time as possible in prison, but you also need to consider what the other agent might do. 
+                                    Make your decision to cooperate or betray. Always respond with only "Cooperate" or "Betray", do not write anything else. """
         self.agent1 = Agent(self.game_prompt)
         self.agent2 = Agent(self.game_prompt)
         self.big_five_p1 = {
@@ -33,7 +33,7 @@ class prisonersDilemma:
             'Neuroticism': ""
             }
         self.agent1_status = 'llm'
-        self.agent1_status = 'llm'
+        self.agent2_status = 'llm'
         self.agent1_cooperation_rate = 0.0
         self.agent2_cooperation_rate = 0.0
 
@@ -134,11 +134,11 @@ class prisonersDilemma:
         agent1_response = ""
         agent2_response = ""
         while True:
-            agent1_response = self.agent1.call(history_agent1, big_five_dict_p1)['message']['content']
+            agent1_response = self.agent1.call(history_agent1, big_five_dict_p1, '')['message']['content']
             if "cooperate" in agent1_response.lower() or "betray" in agent1_response.lower():
                 break
         while True:
-            agent2_response = self.agent2.call(history_agent2, big_five_dict_p2)['message']['content']
+            agent2_response = self.agent2.call(history_agent2, big_five_dict_p2, '')['message']['content']
             if "cooperate" in agent2_response.lower() or "betray" in agent2_response.lower():
                 break
 

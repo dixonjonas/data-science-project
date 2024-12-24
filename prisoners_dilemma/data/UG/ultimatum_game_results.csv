@@ -1,0 +1,7 @@
+Game,Proposal,Response,Result
+1,60,1,The Proposer receives $40 and the Responder receives $60
+2,71,1,The Proposer receives $29 and the Responder receives $71
+3,67,1,The Proposer receives $33 and the Responder receives $67
+1,50,0,Both the Proposer and Responder receive $0
+2,65,1,The Proposer receives $35 and the Responder receives $65
+3,40,1,The Proposer receives $60 and the Responder receives $40

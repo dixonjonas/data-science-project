@@ -68,12 +68,12 @@ class Agent:
         return big_five
     
     # Calling the agent to act
-    def call(self, history, big_five):
+    def call(self, history, big_five, special_message):
         if self.personality == "yes":
             response = ollama.chat(model=self.model, messages=[
                 {
                     'role': 'system',
-                    'content': f"""You are currently in prison. You are also a person with the following Big Five personality traits:
+                    'content': f"""You are a person with the following Big Five personality traits:
                         - You are {big_five['Openness']} in trait 'openness'.
                         - You are {big_five['Conscientiousness']} in trait 'conscientiousness'.
                         - You are {big_five['Extraversion']} in trait 'extraversion'.
@@ -85,18 +85,18 @@ class Agent:
                 },
                 {
                     'role': 'user',
-                    'content': self.game_prompt + history
+                    'content': self.game_prompt + special_message + history
                 },
             ])
         else:
             response = ollama.chat(model=self.model, messages=[
                 {
                     'role': 'system',
-                    'content': "You are currently in prison."
+                    'content': "You are a person."
                 },
                 {
                     'role': 'user',
-                    'content': self.game_prompt + history
+                    'content': self.game_prompt + special_message + history
                 },
             ])
         return response
