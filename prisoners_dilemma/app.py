@@ -7,7 +7,7 @@ from ultimatum_game import ultimatumGame
 def get_game():
     try:
         print("")
-        gamemode = input("Please enter 'PD' for the prisoners dilemma, UG for the ultimatum game, .....: ")
+        gamemode = input("Please enter 'PD' for the prisoners dilemma, 'UG' for the ultimatum game, .....: ")
         if gamemode.lower() == "pd" or gamemode.lower() == "ug":
             return gamemode.lower()
         else:
