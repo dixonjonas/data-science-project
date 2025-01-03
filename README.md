@@ -1,1 +1,1 @@
-# LLM-powered Game theory Simulator
+# How LLM-powered Agent Play Game theory 
