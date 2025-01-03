@@ -5,4 +5,4 @@ The tasks were evenly distributed throughout the project and the group is satisf
 
 - Jonas: prisoners_dilemma.py, ultimatum_game.py, agent.py, app.py
 - Ondrej: mesa_extension, battle_of_sexes.py
-- Zhanning: CoT_prisoners_dilemma, trust_game.py
+- Zhanning: Prompted_prisoners_dilemma(CoT_prompted_prisoners_dilemma), trust_game.py
