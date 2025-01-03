@@ -1,1 +1,3 @@
-# How LLM-powered Agent Play Game theory 
+# How LLM-powered Agents Play Game Theory 
+
+##Jonas
